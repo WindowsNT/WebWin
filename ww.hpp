@@ -19,6 +19,7 @@ struct RUNWW
 	RUNWWPTR nginx;
 	RUNWWPTR php;
 	RUNWWPTR mdb;
+	RUNWWPTR phpxdebug;
 
 	std::wstring SQLData;
 	int NginxPort = 0; // random

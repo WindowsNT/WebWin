@@ -25,10 +25,11 @@ extension=tidy
 extension=zip
 extension=pdo_mysql
 extension=pdo_sqlite
+zend_extension=xdebug
 )";
 
 
-HRESULT InstallPHP(PHP_DATA& nd, RUNWWPTR php)
+HRESULT InstallPHP(PHP_DATA& nd, RUNWWPTR php, RUNWWPTR phpxdebug)
 {
 	if (nd.dir_app.empty() || nd.dir_data.empty() || !php.Has())
 		return E_POINTER;
@@ -101,9 +102,39 @@ HRESULT InstallPHP(PHP_DATA& nd, RUNWWPTR php)
 		if (!PutFile<>(fullp.c_str(), ibuf, true))
 			return E_FAIL;
 	}
+
 	CloseZip(z);
 	nd.exe = t;
 	nd.cgi = t2;
+
+	if (phpxdebug.Has())
+	{
+		auto z2 = OpenZip((void*)phpxdebug.d, (unsigned int)phpxdebug.sz, 0);
+		if (z2)
+		{
+			ZIPENTRY ze3;
+			GetZipItem(z2, -1, &ze3);
+			int numitems2 = ze3.index;
+			for (int zi = 0; zi < numitems2; zi++)
+			{
+				ZIPENTRY ze2 = {};
+				auto r1 = GetZipItem(z2, zi, &ze2); // fetch individual details
+				if (r1 == 0)
+				{
+					std::vector<char> ibuf(ze2.unc_size);
+					auto r2 = UnzipItem(z2, zi, ibuf.data(), ze2.unc_size);
+					if (r2 == 0)
+					{
+						auto wh = nd.dir_app;
+						wh += L"\\ext\\";
+						wh += ze2.name;
+						PutFile(wh.c_str(), ibuf,true);
+					}
+				}
+			}
+		}
+	}
+
 	pini();
 	return S_OK;
 }

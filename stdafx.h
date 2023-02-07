@@ -47,7 +47,7 @@ struct PHP_DATA
 	std::wstring cgi;
 	HANDLE hP = INVALID_HANDLE_VALUE;
 };
-HRESULT InstallPHP(PHP_DATA& nd, RUNWWPTR php);
+HRESULT InstallPHP(PHP_DATA& nd, RUNWWPTR php,RUNWWPTR phpxdebug);
 HANDLE ConfigPHP(PHP_DATA& nd, int p1);
 void KillPHP(PHP_DATA& nd);
 #endif

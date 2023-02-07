@@ -37,17 +37,17 @@ int __stdcall wWinMain(HINSTANCE h, HINSTANCE, LPWSTR, int)
 	WSADATA wData = {};
 	WSAStartup(MAKEWORD(2, 2), &wData);
 
+
 	std::vector<char> f;
-	if (FAILED(ExtractResource(h, L"FILES", L"DATA", f)))
-		return 0;
-
 	std::vector<char> nginx;
-	ExtractResource(h, L"NGINX", L"DATA", nginx);
-
 	std::vector<char> php;
-	ExtractResource(h, L"PHP", L"DATA", php);
-
+	std::vector<char> phpxdebug;
 	std::vector<char> mdb;
+
+	ExtractResource(h, L"FILES", L"DATA", f);
+	ExtractResource(h, L"NGINX", L"DATA", nginx);
+	ExtractResource(h, L"PHP", L"DATA", php);
+	ExtractResource(h, L"PHPXDEBUG", L"DATA", phpxdebug);
 	ExtractResource(h, L"MDB", L"DATA", mdb);
 
 	RUNWW w;
@@ -55,6 +55,7 @@ int __stdcall wWinMain(HINSTANCE h, HINSTANCE, LPWSTR, int)
 	w.nginx = { nginx.data(),nginx.size() };
 	w.root = { f.data(),f.size() };
 	w.php = { php.data(),php.size() };
+	w.phpxdebug = { phpxdebug.data(),phpxdebug.size() };
 	w.mdb = { mdb.data(),mdb.size() };
 	w.PHPPort = 0;
 	w.NginxPort = 0;

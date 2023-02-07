@@ -202,7 +202,7 @@ extern "C" HRESULT __stdcall RunWW(RUNWW& ww)
 		nginx_data.dir_data = nginx_data.dir_app;
 		nginx_data.dir_data += L"\\html";
 	}
-		auto e1 = InstallNginx(nginx_data, ww.nginx);
+	auto e1 = InstallNginx(nginx_data, ww.nginx);
 	if (FAILED(e1))
 		return 0;
 	if (ww.NginxPort == 0)
@@ -219,7 +219,7 @@ extern "C" HRESULT __stdcall RunWW(RUNWW& ww)
 	{
 		php_data.dir_data = php_data.dir_app;
 	}
-	auto e2 = InstallPHP(php_data, ww.php);
+	auto e2 = InstallPHP(php_data, ww.php,ww.phpxdebug);
 	if (FAILED(e2))
 		return 0;
 	if (ww.PHPPort == 0)
