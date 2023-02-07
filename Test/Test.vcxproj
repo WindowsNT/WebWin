@@ -83,10 +83,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>cd data
-tar -a -c -f ..\files.zip *
-cd ..
-</Command>
+      <Command>cd data\html
+tar -a -c -f ..\..\files.zip *
+cd ..\..</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -106,10 +105,9 @@ cd ..
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>cd data
-tar -a -c -f ..\files.zip *
-cd ..
-</Command>
+      <Command>cd data\html
+tar -a -c -f ..\..\files.zip *
+cd ..\..</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -125,10 +123,9 @@ cd ..
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>cd data
-tar -a -c -f ..\files.zip *
-cd ..
-</Command>
+      <Command>cd data\html
+tar -a -c -f ..\..\files.zip *
+cd ..\..</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -148,10 +145,9 @@ cd ..
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>cd data
-tar -a -c -f ..\files.zip *
-cd ..
-</Command>
+      <Command>cd data\html
+tar -a -c -f ..\..\files.zip *
+cd ..\..</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -161,11 +157,11 @@ cd ..
     <ResourceCompile Include="test.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="data\db.php" />
-    <None Include="data\index.htm">
+    <None Include="data\html\db.php" />
+    <None Include="data\html\index.htm">
       <DeploymentContent>true</DeploymentContent>
     </None>
-    <None Include="data\index.php" />
+    <None Include="data\html\index.php" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

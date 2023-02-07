@@ -20,13 +20,13 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="data\db.php">
+    <None Include="data\html\db.php">
       <Filter>Data</Filter>
     </None>
-    <None Include="data\index.htm">
+    <None Include="data\html\index.htm">
       <Filter>Data</Filter>
     </None>
-    <None Include="data\index.php">
+    <None Include="data\html\index.php">
       <Filter>Data</Filter>
     </None>
   </ItemGroup>

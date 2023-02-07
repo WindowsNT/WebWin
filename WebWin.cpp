@@ -195,7 +195,7 @@ extern "C" HRESULT __stdcall RunWW(RUNWW& ww)
 	if (ww.DataFolder)
 	{
 		nginx_data.dir_data = ww.DataFolder;
-		nginx_data.dir_data += L"\\nginx";
+		nginx_data.dir_data += L"\\html";
 	}
 	else
 	{
@@ -235,7 +235,7 @@ extern "C" HRESULT __stdcall RunWW(RUNWW& ww)
 	else
 	{
 		mdb_data.dir_data = mdb_data.dir_app;
-		mdb_data.dir_data += L"\\data";
+		mdb_data.dir_data += L"\\mdb";
 	}
 	auto e3 = InstallMDB( mdb_data, ww.mdb);
 	if (FAILED(e3))
@@ -255,7 +255,7 @@ extern "C" HRESULT __stdcall RunWW(RUNWW& ww)
 		return 0;
 #endif
 #ifdef NEED_NGINX
-	auto hN = ConfigNginx(nginx_data, ww.NginxPort, ww.PHPPort, ww.root.d, ww.root.sz);
+	auto hN = ConfigNginx(nginx_data, ww.NginxPort, ww.PHPPort, ww.root);
 	if (hN == INVALID_HANDLE_VALUE)
 		return 0;
 #endif

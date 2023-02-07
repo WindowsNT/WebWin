@@ -64,5 +64,6 @@ w.WhereAt = L"c:\\ww_apps";
 RunWW(w);
 ```
 
+You can also remove the w.root = {}. In that case the files are already in the "DataFolder" you specify (under a "html" subdirectory). Under "mdb" subdictectory are the MySQL data files.
 
 

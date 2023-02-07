@@ -26,6 +26,12 @@ extension=zip
 extension=pdo_mysql
 extension=pdo_sqlite
 zend_extension=xdebug
+
+[xdebug] 
+xdebug.remote_connect_back = 1 
+xdebug.remote_enable = 1
+xdebug.remote_port = 7011
+xdebug.remote_host = localhost
 )";
 
 

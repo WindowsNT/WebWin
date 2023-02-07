@@ -33,7 +33,7 @@ struct NGINX_DATA
 	HANDLE hP = INVALID_HANDLE_VALUE;
 };
 HRESULT InstallNginx(NGINX_DATA& nd, RUNWWPTR nginx);
-HANDLE ConfigNginx(NGINX_DATA& nd,int p1,int p2, const char* root_zip_data, size_t rootlen);
+HANDLE ConfigNginx(NGINX_DATA& nd,int p1,int p2, RUNWWPTR root);
 void KillNginx(NGINX_DATA& nd);
 #endif
 
