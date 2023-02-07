@@ -8,9 +8,8 @@
       "name": "Listen for Xdebug",
       "type": "php",
       "request": "launch",
-      "port": 7011,
+      "port": 9003,
             "pathMappings": {
-                "c:\\test\\test": "c:\\test\\test"
               }
     },
     {

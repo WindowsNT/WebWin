@@ -157,6 +157,7 @@ cd ..\..</Command>
     <ResourceCompile Include="test.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="data\.vscode\launch.json" />
     <None Include="data\html\db.php" />
     <None Include="data\html\index.htm">
       <DeploymentContent>true</DeploymentContent>

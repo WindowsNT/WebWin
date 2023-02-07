@@ -29,5 +29,8 @@
     <None Include="data\html\index.php">
       <Filter>Data</Filter>
     </None>
+    <None Include="data\.vscode\launch.json">
+      <Filter>Data</Filter>
+    </None>
   </ItemGroup>
 </Project>
