@@ -64,8 +64,8 @@ int __stdcall wWinMain(HINSTANCE h, HINSTANCE, LPWSTR, int)
 	w.DataFolder = L"c:\\ww_data";
 	w.WhereAt = L"c:\\ww_apps";
 
-	w.DataFolder = L"f:\\tools\\WebWin\\Test\\data";
-	w.root = {  };
+//	w.DataFolder = L"f:\\tools\\WebWin\\Test\\data";
+//	w.root = {  };
 
 	RunWW(w);
 	return 0;
