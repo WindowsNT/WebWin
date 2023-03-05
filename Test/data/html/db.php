@@ -79,4 +79,4 @@ function QQ($q,$arr = array(),$stmt = null)
 }
 
 
- $mysqli = new mysqli("localhost:51000","root","","db1");
+ $mysqli = new mysqli("localhost:".MDB_PORT,"root","","db1");

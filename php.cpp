@@ -26,6 +26,7 @@ extension=zip
 extension=pdo_mysql
 extension=pdo_sqlite
 zend_extension=xdebug
+auto_prepend_file="%S\\global.php"
 
 [xdebug] 
 xdebug.discover_client_host = 1 
@@ -34,8 +35,11 @@ xdebug.mode = debug
 xdebug.client_host = localhost
 )";
 
+const char* globalphp = R"(<?php
+define('MDB_PORT', %i);
+)";
 
-HRESULT InstallPHP(PHP_DATA& nd, RUNWWPTR php, RUNWWPTR phpxdebug)
+HRESULT InstallPHP(PHP_DATA& nd, RUNWWPTR php, RUNWWPTR phpxdebug, int mdbport)
 {
 	if (nd.dir_app.empty() || nd.dir_data.empty() || !php.Has())
 		return E_POINTER;
@@ -56,9 +60,18 @@ HRESULT InstallPHP(PHP_DATA& nd, RUNWWPTR php, RUNWWPTR phpxdebug)
 		{
 			std::wstring phpi = nd.dir_app;
 			phpi += L"\\php.ini";
-			std::vector<char> x(strlen(phpini));
-			memcpy(x.data(), phpini, x.size());
+			std::vector<char> x(1000000);
+			sprintf_s(x.data(),100000, phpini,nd.dir_app.c_str());
+			x.resize(strlen(x.data()));
 			PutFile<>(phpi.c_str(), x, true);
+
+			x.resize(1000000);
+			sprintf_s(x.data(), 100000, globalphp,mdbport);
+			x.resize(strlen(x.data()));
+			std::wstring phpi2 = nd.dir_app;
+			phpi2 += L"\\global.php";
+			PutFile<>(phpi2.c_str(), x, true);
+
 		}
 	};
 	

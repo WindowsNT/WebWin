@@ -14,8 +14,9 @@ struct RUNWW
 {
 	HICON hIcon = 0;
 	const wchar_t* WhereAt = 0;
-	const wchar_t* DataFolder = 0;
-	RUNWWPTR root;
+	const wchar_t* HtmlFolder = 0;
+	const wchar_t* PHPDataFolder = 0;
+	const wchar_t* MdbFolder = 0;
 	RUNWWPTR nginx;
 	RUNWWPTR php;
 	RUNWWPTR mdb;

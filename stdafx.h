@@ -33,7 +33,7 @@ struct NGINX_DATA
 	HANDLE hP = INVALID_HANDLE_VALUE;
 };
 HRESULT InstallNginx(NGINX_DATA& nd, RUNWWPTR nginx);
-HANDLE ConfigNginx(NGINX_DATA& nd,int p1,int p2, RUNWWPTR root);
+HANDLE ConfigNginx(NGINX_DATA& nd,int p1,int p2);
 void KillNginx(NGINX_DATA& nd);
 #endif
 
@@ -47,8 +47,8 @@ struct PHP_DATA
 	std::wstring cgi;
 	HANDLE hP = INVALID_HANDLE_VALUE;
 };
-HRESULT InstallPHP(PHP_DATA& nd, RUNWWPTR php,RUNWWPTR phpxdebug);
-HANDLE ConfigPHP(PHP_DATA& nd, int p1);
+HRESULT InstallPHP(PHP_DATA& nd, RUNWWPTR php,RUNWWPTR phpxdebug,int mdbport);
+HANDLE ConfigPHP(PHP_DATA& nd, int p1b);
 void KillPHP(PHP_DATA& nd);
 #endif
 

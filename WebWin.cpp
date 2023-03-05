@@ -190,13 +190,18 @@ extern "C" HRESULT __stdcall RunWW(RUNWW& ww)
 	hIconMain = ww.hIcon;
 	if (ww.WhereAt)
 		WhereSet = ww.WhereAt;
+
+	if (ww.NginxPort == 0)
+		ww.NginxPort = RandomPort();
+	if (ww.PHPPort == 0)
+		ww.PHPPort = RandomPort();
+	if (ww.MDBPort == 0)
+		ww.MDBPort = RandomPort();
+
 #ifdef NEED_NGINX
 	nginx_data.dir_app = GetRootInstallableFolder() + L"\\nginx";
-	if (ww.DataFolder)
-	{
-		nginx_data.dir_data = ww.DataFolder;
-		nginx_data.dir_data += L"\\html";
-	}
+	if (ww.HtmlFolder)
+		nginx_data.dir_data = ww.HtmlFolder;
 	else
 	{
 		nginx_data.dir_data = nginx_data.dir_app;
@@ -205,33 +210,23 @@ extern "C" HRESULT __stdcall RunWW(RUNWW& ww)
 	auto e1 = InstallNginx(nginx_data, ww.nginx);
 	if (FAILED(e1))
 		return 0;
-	if (ww.NginxPort == 0)
-		ww.NginxPort = RandomPort();
 #endif
 #ifdef NEED_PHP
 	php_data.dir_app = GetRootInstallableFolder() + L"\\php";
-	if (ww.DataFolder)
-	{
-		php_data.dir_data = ww.DataFolder;
-		php_data.dir_data += L"\\php";
-	}
+	if (ww.PHPDataFolder)
+		php_data.dir_data = ww.PHPDataFolder;
 	else
 	{
 		php_data.dir_data = php_data.dir_app;
 	}
-	auto e2 = InstallPHP(php_data, ww.php,ww.phpxdebug);
+	auto e2 = InstallPHP(php_data, ww.php,ww.phpxdebug, ww.MDBPort);
 	if (FAILED(e2))
 		return 0;
-	if (ww.PHPPort == 0)
-		ww.PHPPort = RandomPort();
 #endif
 #ifdef NEED_MDB
 	mdb_data.dir_app = GetRootInstallableFolder() + L"\\mdb";
-	if (ww.DataFolder)
-	{
-		mdb_data.dir_data = ww.DataFolder;
-		mdb_data.dir_data += L"\\mdb";
-	}
+	if (ww.MdbFolder)
+		mdb_data.dir_data = ww.MdbFolder;
 	else
 	{
 		mdb_data.dir_data = mdb_data.dir_app;
@@ -240,8 +235,6 @@ extern "C" HRESULT __stdcall RunWW(RUNWW& ww)
 	auto e3 = InstallMDB( mdb_data, ww.mdb);
 	if (FAILED(e3))
 		return 0;
-	if (ww.MDBPort == 0)
-		ww.MDBPort = RandomPort();
 #endif
 
 #ifdef NEED_MDB
@@ -255,7 +248,7 @@ extern "C" HRESULT __stdcall RunWW(RUNWW& ww)
 		return 0;
 #endif
 #ifdef NEED_NGINX
-	auto hN = ConfigNginx(nginx_data, ww.NginxPort, ww.PHPPort, ww.root);
+	auto hN = ConfigNginx(nginx_data, ww.NginxPort, ww.PHPPort);
 	if (hN == INVALID_HANDLE_VALUE)
 		return 0;
 #endif

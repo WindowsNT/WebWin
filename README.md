@@ -32,16 +32,13 @@ MDB DATA "mariadb-10.10.2-winx64.zip"
 PHPXDEBUG DATA "php_xdebug-3.2.0-8.2-vs16-x86_64.zip"
 ```
 
-* The rc also includes an icon and a ZIP file of the PHP/HTML code. In this solution a tar is called to zip these as a prebuild event.
 * Test demonstrates the calling of the library:
 
 ```
-std::vector<char> f;
 std::vector<char> nginx;
 std::vector<char> php;
 std::vector<char> phpxdebug;
 std::vector<char> mdb;
-ExtractResource(h, L"FILES", L"DATA", f);
 ExtractResource(h, L"NGINX", L"DATA", nginx);
 ExtractResource(h, L"PHP", L"DATA", php);
 ExtractResource(h, L"PHPXDEBUG", L"DATA", phpxdebug);
@@ -50,20 +47,30 @@ ExtractResource(h, L"MDB", L"DATA", mdb);
 RUNWW w;
 w.hIcon = LoadIcon(h, L"ICON_1");
 w.nginx = { nginx.data(),nginx.size() };
-w.root = { f.data(),f.size() };
 w.php = { php.data(),php.size() };
 w.phpxdebug = { phpxdebug.data(),phpxdebug.size() };
 w.mdb = { mdb.data(),mdb.size() };
 w.PHPPort = 0;
 w.NginxPort = 0;
-w.MDBPort = 51000; // should be something fixed for PHP to connect here
+w.MDBPort = 0;
 	
-w.DataFolder = L"c:\\ww_data";
+std::vector<wchar_t> cd(1000);
+GetCurrentDirectory(1000,cd.data());
+std::wstring t = cd.data();
+std::wstring t1 = t + L"\\data\\html";
+std::wstring t2 = t + L"\\data\\php";
+std::wstring t3 = t + L"\\data\\mdb";
+
+w.HtmlFolder = t1.c_str();
+w.PHPDataFolder = t2.c_str();
+w.MdbFolder = t3.c_str();
 w.WhereAt = L"c:\\ww_apps";
+
 
 RunWW(w);
 ```
 
-You can also remove the w.root = {}. In that case the files are already in the "DataFolder" you specify (under a "html" subdirectory). Under "mdb" subdictectory are the MySQL data files.
+
+
 
 

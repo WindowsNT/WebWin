@@ -102,7 +102,7 @@ HRESULT ExtractNginxData(NGINX_DATA& nd, const char* root_zip_data, size_t rootl
 	return S_OK;
 }
 
-HANDLE ConfigNginx(NGINX_DATA& nd,int p1,int p2, RUNWWPTR root)
+HANDLE ConfigNginx(NGINX_DATA& nd,int p1,int p2)
 {
 	std::vector<char> dx(10000);
 	auto j = multi(nd.data.c_str());
@@ -114,11 +114,6 @@ HANDLE ConfigNginx(NGINX_DATA& nd,int p1,int p2, RUNWWPTR root)
 	
 	dx.resize(strlen (dx.data()));
 	PutFile<>(nd.conf.c_str(), dx, true);
-	if (root.Has())
-	{
-		if (FAILED(ExtractNginxData(nd, root.d, root.sz)))
-			return INVALID_HANDLE_VALUE;
-	}
 	auto r = Run(nd.exe.c_str(), false, CREATE_NO_WINDOW,pathfromfile(nd.exe.c_str()).c_str());
 	nd.hP = r;
 	return r;
