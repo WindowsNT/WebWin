@@ -109,7 +109,7 @@ HANDLE ConfigMDB(MDB_DATA& nd,int MDBPort)
 		auto t = nd.path;
 		t += L"\\bin\\";
 		t += L"mysql.exe";
-		swprintf_s(dx.data(), 10000, L"\"%s\" -P %i -u root -e \"CREATE DATABASE db1\"", t.c_str(), MDBPort);
+		swprintf_s(dx.data(), 10000, L"\"%s\" -P %i -u root -e \"CREATE DATABASE db1 CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci\"", t.c_str(), MDBPort);
 		Run(dx.data(), true, CREATE_NO_WINDOW, pathfromfile(t.c_str()).c_str());
 	}
 
