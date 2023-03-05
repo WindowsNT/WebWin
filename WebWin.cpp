@@ -125,7 +125,7 @@ LRESULT CALLBACK WP(HWND hh, UINT mm, WPARAM ww, LPARAM ll)
 {
 	if (mm == WM_TASKBARCREATED)
 		mm = WM_CREATE;
-
+	RUNWW* run = (RUNWW*)GetWindowLongPtr(hh, GWLP_USERDATA);
 
 	switch (mm)
 	{
@@ -138,6 +138,13 @@ LRESULT CALLBACK WP(HWND hh, UINT mm, WPARAM ww, LPARAM ll)
 				POINT p = { 0 };
 				GetCursorPos(&p);
 				auto hX = CreatePopupMenu();
+				std::vector<wchar_t> x(1000);
+				swprintf_s(x.data(), 1000,L"Nginx port %i", run->NginxPort);
+				AppendMenu(hX, MF_STRING, 11, x.data());
+				swprintf_s(x.data(), 1000, L"PHP-FPM port %i", run->PHPPort);
+				AppendMenu(hX, MF_STRING, 12, x.data());
+				swprintf_s(x.data(), 1000, L"Maria DB port %i", run->MDBPort);
+				AppendMenu(hX, MF_STRING, 13, x.data());
 				AppendMenu(hX, MF_STRING, 199, L"Exit");
 				SetForegroundWindow(hh);
 				TrackPopupMenu(hX, TPM_CENTERALIGN | TPM_LEFTBUTTON, p.x, p.y, 0, hh, 0);
@@ -149,6 +156,9 @@ LRESULT CALLBACK WP(HWND hh, UINT mm, WPARAM ww, LPARAM ll)
 
 	case WM_CREATE:
 		{
+			LPCREATESTRUCT c = (LPCREATESTRUCT)ll;
+			run = (RUNWW*)c->lpCreateParams;
+			SetWindowLongPtr(hh, GWLP_USERDATA, (LONG_PTR)run);
 			nn.cbSize = sizeof(nn);
 			nn.hWnd = hh;
 			nn.uID = MESSAGE_HIDE;
@@ -282,7 +292,7 @@ extern "C" HRESULT __stdcall RunWW(RUNWW& ww)
 		WS_CLIPCHILDREN | WS_MAXIMIZE,
 		CW_USEDEFAULT, CW_USEDEFAULT,
 		CW_USEDEFAULT, CW_USEDEFAULT, 0, 0,
-		GetModuleHandle(0), 0);
+		GetModuleHandle(0), (void*)&ww);
 
 	MSG msg;
 	while (GetMessage(&msg, 0, 0, 0))

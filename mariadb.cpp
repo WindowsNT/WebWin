@@ -103,7 +103,7 @@ HANDLE ConfigMDB(MDB_DATA& nd,int MDBPort)
 	swprintf_s(dx.data(), 10000, L"\"%s\" -P %i --data \"%s\"", nd.exe.c_str(),MDBPort,nd.data.c_str());
 	auto r = Run(dx.data(), false, CREATE_NO_WINDOW, pathfromfile(nd.exe.c_str()).c_str());
 	nd.hP = r;
-	
+
 	if (1)
 	{
 		auto t = nd.path;
@@ -112,6 +112,16 @@ HANDLE ConfigMDB(MDB_DATA& nd,int MDBPort)
 		swprintf_s(dx.data(), 10000, L"\"%s\" -P %i -u root -e \"CREATE DATABASE db1\"", t.c_str(), MDBPort);
 		Run(dx.data(), true, CREATE_NO_WINDOW, pathfromfile(t.c_str()).c_str());
 	}
+
+	if (1)
+	{
+		auto t = nd.path;
+		t += L"\\bin\\";
+		t += L"mysql.exe";
+		swprintf_s(dx.data(), 10000, L"\"%s\" -P %i -u root -e \"SET PASSWORD FOR 'root'@'localhost' = PASSWORD('root')\"", t.c_str(), MDBPort);
+		Run(dx.data(), true, CREATE_NO_WINDOW, pathfromfile(t.c_str()).c_str());
+	}
+
 
 	return r;
 
