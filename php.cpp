@@ -30,7 +30,7 @@ auto_prepend_file="%S\\global.php"
 
 [xdebug] 
 xdebug.discover_client_host = 1 
-xdebug.client_port = 9003
+xdebug.client_port = 7011
 xdebug.mode = debug
 xdebug.client_host = localhost
 )";
